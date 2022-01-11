@@ -6,6 +6,7 @@ const app = express();
 
 const connectDB = require("./db/connect");
 
+const productsRouters = require("./routes/products");
 const notFoundMiddleware = require("./middleware/not-found");
 const errorMiddleware = require("./middleware/error-handler");
 
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
     '<h1>store Api </h1> <a href="/api/v1/products">¨Products routes</a>',
   );
 });
+app.use("/api/v1/products", productsRouters);
 
 const port = process.env.Port || 5000;
 //products route

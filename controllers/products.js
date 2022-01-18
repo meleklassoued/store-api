@@ -40,6 +40,9 @@ const AllProducts = async (req, res) => {
   res.status(200).json({ msg: Products });
 };
 
+
+
+
 module.exports = {
   AllProducts,
   AllProductsStatic,

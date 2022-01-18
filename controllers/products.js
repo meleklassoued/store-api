@@ -1,5 +1,7 @@
 const Product = require("../models/product");
-
+/* -------------------------------------------------------------------------- */
+/*                                 static test                                */
+/* -------------------------------------------------------------------------- */
 const AllProductsStatic = async (req, res) => {
   const search = "a";
   const Products = await Product.find({
@@ -8,6 +10,10 @@ const AllProductsStatic = async (req, res) => {
 
   res.status(200).json({ msg: Products, nbHits: Products.length });
 };
+
+/* -------------------------------------------------------------------------- */
+/*                                all Products                                */
+/* -------------------------------------------------------------------------- */
 const AllProducts = async (req, res) => {
   const { featured, company, name, sort } = req.query;
   const objectQuery = {};
@@ -25,7 +31,10 @@ const AllProducts = async (req, res) => {
   } else {
     result = result.sort("createAt");
   }
-
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+  result = result.skip(skip).limit(limit);
   console.log(objectQuery);
   const Products = await result;
   res.status(200).json({ msg: Products });
